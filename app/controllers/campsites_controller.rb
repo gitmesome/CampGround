@@ -8,6 +8,10 @@ class CampsitesController < ApplicationController
     render json: campsite
   end
 
+  def edit
+    render json: Campsite.find(params[:id])
+  end
+
   def update
     campsite = Campsite.find(params[:id])
     campsite.update_attributes(campsite_params)

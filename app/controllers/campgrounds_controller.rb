@@ -3,6 +3,10 @@ class CampgroundsController < ApplicationController
     render json: Campground.all
   end
 
+  def edit
+    render json: Campground.find(params[:id])
+  end
+
   def create
     campground = Campground.create(campground_params)
     render json: campground
