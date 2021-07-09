@@ -1,19 +1,21 @@
 require 'date'
 
 class Campground < ApplicationRecord
-  attr_reader :campsites, :booked_dates, :price_range
+  attr_reader :booked_dates, :price_range
 
-  has_many :campsite
-
-  def campsites
-    @campsites = self.campsites.collect { |site| site.name }
-  end
+  has_many :campsites
 
   def booked_dates
     @booked_dates = self.campsites.collect do |site|
       bookings = []
-      self.campsites.booked_dates.split(",").each do |booking|
-        bookings << DateTime.parse(booking).to_date
+      begin
+        self.campsites.each do |booking|
+          booking.booked_dates&.split(",").each do |book|
+            bookings << DateTime.parse(book).to_date
+          end
+        end
+      rescue NoMethodError
+        return []
       end
       bookings
     end
@@ -21,5 +23,9 @@ class Campground < ApplicationRecord
 
   def price_range
     @price_range = self.campsites.collect { |site| site.price }.minmax
+  end
+
+  def to_s
+    "#{self.name}"
   end
 end
