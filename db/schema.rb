@@ -21,7 +21,7 @@ ActiveRecord::Schema.define(version: 2021_07_09_103406) do
   create_table "campsites", force: :cascade do |t|
     t.string "name", null: false
     t.integer "campground_id"
-    t.string "booked_date"
+    t.string "booked_dates"
     t.decimal "price", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
