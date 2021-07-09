@@ -13,7 +13,7 @@ task :load_data => :environment do
         campground = Campground.new(name: parts[0])
         campground.save!
       end
-      site = Campsite.new(name: parts[1], campground: campground, price: parts[2])
+      site = Campsite.new(name: parts[1], campground: campground, price: parts[2].to_f)
       site.save!
     end
   end
